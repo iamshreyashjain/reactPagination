@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import './App.css'
 
-export const Pagination = ({ totalPages, currentPage, onPageChange }) => {
+const Pagination = ({ totalPages, currentPage, onPageChange }) => {
   const [current, setCurrent] = useState(currentPage || 1);
 
   const handlePageChange = (page) => {
-    if (page < 1 || page > totalPages) return;
+    if (page < 1 || page > totalPages) {
+      return;
+    }
     setCurrent(page);
     onPageChange(page);
   };
@@ -14,13 +16,14 @@ export const Pagination = ({ totalPages, currentPage, onPageChange }) => {
     const pages = [];
 
     if (totalPages <= 7) {
-      // Show all pages if total pages <= 7
       for (let i = 1; i <= totalPages; i++) {
         pages.push(i);
       }
-    } else {
-      pages.push(1); // First page
-      if (current > 4) pages.push("..."); // Ellipsis before middle pages
+    }else {
+      pages.push(1);
+      if(current > 4){
+        pages.push("..."); 
+      }
 
       const start = Math.max(2, current - 1);
       const end = Math.min(totalPages - 1, current + 1);
@@ -29,7 +32,10 @@ export const Pagination = ({ totalPages, currentPage, onPageChange }) => {
         pages.push(i);
       }
 
-      if (current < totalPages - 3) pages.push("..."); // Ellipsis after middle pages
+      if (current < totalPages - 3){
+        pages.push("..."); // Ellipsis after middle pages
+      }
+      
       pages.push(totalPages); // Last page
     }
 
